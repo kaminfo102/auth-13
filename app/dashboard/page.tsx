@@ -1,8 +1,10 @@
 import { verifyToken } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, School, Users, User, Mail, Phone, MapPin, BookOpen } from 'lucide-react';
+import { GraduationCap, School, Users, User, Mail, Phone, MapPin, BookOpen, ChevronDown } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
+import Image from 'next/image';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default async function DashboardPage() {
   const user = await verifyToken();
@@ -29,122 +31,130 @@ export default async function DashboardPage() {
 
   return (
     <div className="container py-8">
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 rounded-lg text-white mb-8">
-        <h1 className="text-3xl font-bold">
-          {user.role === 'ADMIN' ? 'داشبورد مدیریت' : 'داشبورد فراگیر'}
-        </h1>
-        <p className="mt-2">خوش آمدید، {user.firstName} {user.lastName}!</p>
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        {user.role === 'ADMIN' ? 'داشبورد مدیریت' : 'داشبورد فراگیر'}
+      </h1>
+
+      {/* آواتار کاربر */}
+      <div className="flex justify-center mb-8">
+        <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary">
+          <Image
+            src="/avatar-sample.jpg" // تصویر آواتار نمونه
+            alt="User Avatar"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
       </div>
 
       {user.role === 'ADMIN' ? (
-        <div className="grid gap-4 md:grid-cols-3">
-          <Card className="hover:shadow-lg transition-shadow">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-400 text-white hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">تعداد فراگیران</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <Users className="h-6 w-6 text-white" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats._count._all}</div>
+              <p className="text-xs">+20 از ماه گذشته</p>
             </CardContent>
           </Card>
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="bg-gradient-to-r from-green-500 to-green-400 text-white hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">شهرستان‌ها</CardTitle>
-              <MapPin className="h-4 w-4 text-muted-foreground" />
+              <MapPin className="h-6 w-6 text-white" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{citiesStats.length}</div>
+              <p className="text-xs">+2 از ماه گذشته</p>
             </CardContent>
           </Card>
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-400 text-white hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">میانگین ترم</CardTitle>
-              <GraduationCap className="h-4 w-4 text-muted-foreground" />
+              <BookOpen className="h-6 w-6 text-white" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">۵</div>
+              <p className="text-xs">+0.1 از ماه گذشته</p>
             </CardContent>
           </Card>
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card className="hover:shadow-lg transition-shadow">
+        <div className="grid gap-6">
+          <Card className="bg-gradient-to-r from-pink-500 to-pink-400 text-white hover:shadow-lg transition-shadow duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
-                اطلاعات شخصی
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">نام و نام خانوادگی:</span>
-                <span>{user.firstName} {user.lastName}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">کد ملی:</span>
-                <span>{user.nationalId}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">شهرستان:</span>
-                <span>{user.city}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">ترم:</span>
-                <span>{user.term}</span>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                اطلاعات تماس
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">ایمیل:</span>
-                <span>{user.email}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">موبایل:</span>
-                <span>{user.mobile}</span>
-              </div>
-              {user.phone && (
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">تلفن ثابت:</span>
-                  <span>{user.phone}</span>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {user.role !== 'ADMIN' && (
-        <div className="mt-8">
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                پیشرفت تحصیلی
+                <User className="h-6 w-6" />
+                <span>اطلاعات شخصی</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">تعداد واحدهای گذرانده:</span>
-                  <span>۴۲</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">میانگین نمرات:</span>
-                  <span>۱۷.۵</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">واحدهای باقی‌مانده:</span>
-                  <span>۱۸</span>
-                </div>
-              </div>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="personal-info">
+                  <AccordionTrigger className="hover:no-underline">
+                    <div className="flex items-center gap-2">
+                      <ChevronDown className="h-4 w-4" />
+                      <span>مشاهده اطلاعات شخصی</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-4 pt-4">
+                    <div className="flex justify-between">
+                      <span>نام و نام خانوادگی:</span>
+                      <span className="font-medium">{user.firstName} {user.lastName}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>کد ملی:</span>
+                      <span className="font-medium">{user.nationalId}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>شهرستان:</span>
+                      <span className="font-medium">{user.city}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>ترم:</span>
+                      <span className="font-medium">{user.term}</span>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-r from-indigo-500 to-indigo-400 text-white hover:shadow-lg transition-shadow duration-300">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Mail className="h-6 w-6" />
+                <span>اطلاعات تماس</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="contact-info">
+                  <AccordionTrigger className="hover:no-underline">
+                    <div className="flex items-center gap-2">
+                      <ChevronDown className="h-4 w-4" />
+                      <span>مشاهده اطلاعات تماس</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-4 pt-4">
+                    {/* <div className="flex justify-between">
+                      <span>ایمیل:</span>
+                      <span className="font-medium">{user.email}</span>
+                    </div> */}
+                    <div className="flex justify-between">
+                      <span>موبایل:</span>
+                      <span className="font-medium">{user.mobile}</span>
+                    </div>
+                    {user.phone && (
+                      <div className="flex justify-between">
+                        <span>تلفن ثابت:</span>
+                        <span className="font-medium">{user.phone}</span>
+                      </div>
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </CardContent>
           </Card>
         </div>

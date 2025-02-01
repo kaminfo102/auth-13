@@ -2,7 +2,7 @@ import * as z from 'zod';
 import { KURDISTAN_CITIES, TERMS } from '../constants';
 
 export const loginSchema = z.object({
-  email: z.string().email('ایمیل نامعتبر است'),
+  nationalId: z.string().min(10,'کد ملی نامعتبر است'),
   password: z.string().min(6, 'رمز عبور باید حداقل 6 کاراکتر باشد'),
 });
 
@@ -19,7 +19,6 @@ export const registerSchema = z.object({
   term: z.number().min(1).max(18),
   mobile: z.string().regex(/^09\d{9}$/, 'شماره موبایل نامعتبر است'),
   phone: z.string().optional(),
-  email: z.string().email('ایمیل نامعتبر است'),
   password: z.string().min(6, 'رمز عبور باید حداقل 6 کاراکتر باشد'),
 });
 

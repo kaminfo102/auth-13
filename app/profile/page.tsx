@@ -79,10 +79,10 @@ export default async function ProfilePage() {
             <CardTitle>اطلاعات تماس</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <span className="text-muted-foreground">ایمیل:</span>
               <span>{user.email}</span>
-            </div>
+            </div> */}
             <div className="flex justify-between">
               <span className="text-muted-foreground">موبایل:</span>
               <span>{user.mobile}</span>

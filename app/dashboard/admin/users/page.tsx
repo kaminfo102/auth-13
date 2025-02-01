@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react';
 import { DataTable } from './data-table';
@@ -31,7 +31,7 @@ export default function UsersPage() {
   return (
     <div className="container py-8">
       <h1 className="text-3xl font-bold mb-8">لیست فراگیران</h1>
-      
+
       <div className="relative mb-4">
         <Search className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input

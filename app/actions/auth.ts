@@ -9,8 +9,8 @@ export async function login(data: LoginInput) {
   const user = await prisma.user.findFirst({
     where: {
       OR: [
-        { email: data.email },
-        { nationalId: data.email },
+        
+        { nationalId: data.nationalId },
       ]
     },
   });
@@ -34,7 +34,7 @@ export async function register(data: RegisterInput) {
   const exists = await prisma.user.findFirst({
     where: {
       OR: [
-        { email: data.email },
+        
         { nationalId: data.nationalId },
         { mobile: data.mobile },
       ],
@@ -64,14 +64,13 @@ export async function register(data: RegisterInput) {
 export async function createDefaultAdmin() {
   try {
     const exists = await prisma.user.findFirst({
-      where: { email: 'admin@example.com' },
+      where: { nationalId: '3733161580' },
     });
 
     if (!exists) {
       const hashedPassword = await hash('admin123', 12);
       await prisma.user.create({
         data: {
-          email: 'admin@example.com',
           password: hashedPassword,
           firstName: 'کامیل',
           lastName: 'میرزایی',

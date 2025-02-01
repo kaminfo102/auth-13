@@ -44,7 +44,6 @@ export function RegisterForm() {
       term: 1,
       mobile: '',
       phone: '',
-      email: '',
       password: '',
     },
   });
@@ -261,7 +260,7 @@ export function RegisterForm() {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
@@ -276,7 +275,7 @@ export function RegisterForm() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="password"

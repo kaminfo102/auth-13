@@ -4,10 +4,10 @@ import { hash } from 'bcryptjs';
 import { randomBytes } from 'crypto';
 
 export async function POST(request: NextRequest) {
-  const { email } = await request.json();
+  const { nationalId } = await request.json();
 
   const user = await prisma.user.findUnique({
-    where: { email },
+    where: { nationalId },
   });
 
   if (!user) {
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
   const hashedResetToken = await hash(resetToken, 12);
 
   await prisma.user.update({
-    where: { email },
+    where: { nationalId },
     data: {
       resetToken: hashedResetToken,
       resetTokenExpiry: new Date(Date.now() + 3600000), // 1 hour

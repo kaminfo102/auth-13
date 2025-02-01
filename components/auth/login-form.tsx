@@ -26,7 +26,7 @@ export function LoginForm() {
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
+      nationalId: '',
       password: '',
     },
   });
@@ -58,10 +58,10 @@ export function LoginForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="email"
+            name="nationalId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>نام کاربری (کد ملی) یا ایمیل</FormLabel>
+                <FormLabel>نام کاربری (کد ملی) یا </FormLabel>
                 <FormControl>
                   <div className="relative">
                     <User className="absolute right-3 top-2.5 h-5 w-5 text-muted-foreground" />

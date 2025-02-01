@@ -20,7 +20,6 @@ model User {
   mobile        String    @unique
   phone         String?
   image         String?
-  email         String    @unique
   password      String
   role          String    @default("STUDENT")
   resetToken    String?
@@ -30,7 +29,7 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  @@index([email])
+  
   @@index([mobile])
   @@index([nationalId])
 }

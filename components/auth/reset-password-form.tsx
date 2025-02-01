@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 
 const resetSchema = z.object({
-  email: z.string().email('ایمیل نامعتبر است'),
+  nationalId: z.string().min(10,'کد ملی نامعتبر است'),
 });
 
 const newPasswordSchema = z.object({
@@ -39,7 +39,7 @@ export function ResetPasswordForm() {
   const requestForm = useForm<ResetInput>({
     resolver: zodResolver(resetSchema),
     defaultValues: {
-      email: '',
+      nationalId: '',
     },
   });
 
@@ -99,12 +99,12 @@ export function ResetPasswordForm() {
         <form onSubmit={requestForm.handleSubmit(onRequestSubmit)} className="space-y-4">
           <FormField
             control={requestForm.control}
-            name="email"
+            name="nationalId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>ایمیل</FormLabel>
+                <FormLabel>کد ملی</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" disabled={loading} />
+                  <Input {...field} type="text" disabled={loading} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

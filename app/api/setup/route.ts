@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 export async function POST() {
   try {
     const exists = await prisma.user.findFirst({
-      where: { email: 'admin@example.com' },
+      where: { nationalId: '3733161580' },
     });
 
     if (!exists) {
@@ -14,9 +14,9 @@ export async function POST() {
         data: {
           email: 'admin@example.com',
           password: hashedPassword,
-          firstName: 'ادمین',
-          lastName: 'سیستم',
-          nationalId: '0000000000',
+          firstName: 'کامیل ',
+          lastName: 'میرزائی',
+          nationalId: '3733161580',
           birthDate: new Date(),
           city: 'سنندج',
           term: 1,
