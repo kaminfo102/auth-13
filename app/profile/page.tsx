@@ -47,7 +47,7 @@ export default async function ProfilePage() {
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">تاریخ تولد:</span>
-              <span>{new Date(user.birthDate).toLocaleDateString('fa-IR')}</span>
+              <span>{user.birthDate ? new Date(user.birthDate).toLocaleDateString('fa-IR') : 'N/A'}</span>
             </div>
           </CardContent>
         </Card>

@@ -10,7 +10,7 @@ export type User = {
   id: string;
   firstName: string;
   lastName: string;
-  birthDate: datetime?;
+  birthDate: string;
   nationalId: string;
   mobile: string;
   city: string;

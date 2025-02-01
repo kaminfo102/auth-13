@@ -5,7 +5,9 @@ import { GraduationCap, School, Users, User, Mail, Phone, MapPin, BookOpen, Chev
 import { prisma } from '@/lib/prisma';
 import Image from 'next/image';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { Pencil } from 'lucide-react';
 export default async function DashboardPage() {
   const user = await verifyToken();
   if (!user) redirect('/login');
@@ -46,6 +48,12 @@ export default async function DashboardPage() {
           />
         </div>
       </div>
+      <Link href="/dashboard/edit">
+          <Button className="gap-2">
+            <Pencil className="h-4 w-4" />
+            ویرایش پروفایل
+          </Button>
+        </Link>
 
       {user.role === 'ADMIN' ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

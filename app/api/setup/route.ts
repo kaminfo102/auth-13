@@ -12,7 +12,6 @@ export async function POST() {
       const hashedPassword = await hash('admin123', 12);
       await prisma.user.create({
         data: {
-          email: 'admin@example.com',
           password: hashedPassword,
           firstName: 'کامیل ',
           lastName: 'میرزائی',
