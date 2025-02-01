@@ -41,7 +41,7 @@ export default async function DashboardPage() {
       <div className="flex justify-center mb-8">
         <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary">
           <Image
-            src="/avatar-sample.jpg" // تصویر آواتار نمونه
+            src="/images/avatar/defult-avatar-boy.webp" // تصویر آواتار نمونه
             alt="User Avatar"
             layout="fill"
             objectFit="cover"
